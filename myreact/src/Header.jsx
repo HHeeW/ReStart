@@ -19,7 +19,7 @@ const Header = () => {
     const [scrollYValue, setScrollYValue] = useState(false);
 
     const addScrollCss = () => {
-        window.pageYOffset == 0 ?
+        window.pageYOffset === 0 ?
         setScrollYValue(false)
         :setScrollYValue(true)
       };
@@ -29,11 +29,11 @@ const Header = () => {
   return (
     <HeaderContainer scrollValue ={scrollYValue} className='sticky top-0 z-50 w-full bg-white h-60'>
         <div className='container flex justify-between w-full max-auto'>
-            <p className='w-1/12'><HeaderText to={"/"}>네이버</HeaderText></p>
+            <p className='w-1/12'><HeaderText to={"/"}>황희원</HeaderText></p>
             <nav className='w-4/12'>
                 <HeaderUl>
                     <li>
-                        <HeaderText to={"/kakaohome"}>네이버</HeaderText>
+                        <HeaderText to={"/listhome"}>게시판</HeaderText>
                     </li>
                     <li>
                         <HeaderText to={"/newshome"}>뉴스</HeaderText>

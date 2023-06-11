@@ -16,8 +16,12 @@ module.exports = {
       minHeight: px0_200,
       spacing: px0_200,
       boxShadow: {
-        'box': '0 0px 5px 5px rgba(0, 0, 0, 0.1)',
-      }
+        'defaultBox': '0 0px 10px 5px rgba(0, 0, 0, 0.1)',
+        'hoverBox': '0 0px 10px 10px rgba(0, 0, 0, 0.2)',
+      },
+      screens: {
+        '3xl': '1600px',
+      },
     },
   },
   plugins: [],

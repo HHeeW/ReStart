@@ -7,12 +7,14 @@ import SignInPage from './Page/SignInPage'
 import SignUpPage from './Page/SignUpPage'
 import UserHome from './Page/User/UserHome'
 import UserInfoPage from './Page/User/UserInfoPage'
+import ListHome from './Page/ToDoList/ListHome'
 
 const App = () => {
   return (
     <Routes>
       <Route element={<Layout/>}>
         <Route path='/'element={<Home/>}/>
+        <Route path='/listhome' element={<ListHome/>} />
         <Route path='/newshome' element={<NewsHome/>} />
         <Route path='/userhome/:username' element={<UserHome/>} />
         <Route path='/signin' element={<SignInPage/>} />

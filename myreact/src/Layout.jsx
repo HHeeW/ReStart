@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Header from './Header';
+import Footer from './Footer';
 
 const Layout = () => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Layout = () => {
         <main className='container'>
             <Outlet />
         </main>
+        <Footer/>
     </div>
   )
 }
