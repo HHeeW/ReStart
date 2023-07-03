@@ -2,15 +2,16 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Left from './Page/Left/Left';
 
-const Layout = () => {
-
+const Layout = ({setLeftMenu, leftMenu}) => {
   return (
     <div className='Container'>
+      {leftMenu && 
         <div className="Left_Container">
-          <Left/>
+          <Left setLeftMenu={setLeftMenu} leftMenu={leftMenu}/>
         </div>
+      }
         <main className='Main_Container'>
-          <Outlet />
+          <Outlet/>
         </main>
     </div>
   )

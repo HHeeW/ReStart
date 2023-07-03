@@ -1,7 +1,9 @@
 import React from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
 import styled from 'styled-components'
 
-const Left = () => {
+const Left = ({setLeftMenu, leftMenu}) => {
   const GridContainer = styled.div`
     width: 100%;
     height: 100%;
@@ -46,13 +48,33 @@ const Left = () => {
     grid-template-columns: 20% 80%;
     grid-column-gap: 5%;
   `
+  const ImageBox = styled.div`
+    img:first-child{
+      display: none;
+    }
+    img:last-child{
+      display: block;
+    }
+    @media (min-width: 1536px) {
+      img:first-child{
+        display: block;
+      }
+      img:last-child{
+        display: none;
+      }
+    }
+  `
+
   return (
     <GridContainer>
       <GridRow1 className='bg-Main mix-blend-difference'>
         <UserContainer>
           <img src='/Images/Left/User.png' alt='사용자 이미지'/>
           <p style={{fontWeight: 'bold', fontSize:'max(0.9vw, 16px'}}><span>황희원</span>님 반갑습니다.</p>
-          <img src='/Images/Left/Setting.png' alt='설정'/>
+          <ImageBox>
+            <img src='/Images/Left/Setting.png' alt='설정'/>
+            <img src='/Images/Left/Cancel.png' alt='닫기' onClick={()=>{setLeftMenu(false)}}/>
+          </ImageBox>
         </UserContainer>
       </GridRow1>
       <GridRow2 className='bg-Custom1 mix-blend-difference'>

@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Layout from './Layout'
 import Home from './Page/Home/Home'
+import { useState } from 'react'
 // import SignInPage from './Page/SignInPage'
 // import SignUpPage from './Page/SignUpPage'
 // import UserHome from './Page/User/UserHome'
@@ -9,13 +10,14 @@ import Home from './Page/Home/Home'
 // import ListHome from './Page/ToDoList/ListHome'
 
 const App = () => {
+  const [leftMenu, setLeftMenu] = useState('block')
   return (
     <Routes>
-      <Route element={<Layout/>}>
-        <Route path='/'element={<Home/>}/>
+      <Route element={<Layout setLeftMenu={setLeftMenu} leftMenu={leftMenu} />}>
+        <Route path='/'element={<Home setLeftMenu={setLeftMenu} leftMenu={leftMenu} />}/>
         {/* <Route path='/listhome' element={<ListHome/>} />
-        <Route path='/userhome/:username' element={<UserHome/>} /> */}
-        {/* <Route path='/signin' element={<SignInPage/>} />
+        <Route path='/userhome/:username' element={<UserHome/>} />
+        <Route path='/signin' element={<SignInPage/>} />
         <Route path='/signup' element={<SignUpPage/>} />
         <Route path='/userinfo' element={<UserInfoPage/>} /> */}
       </Route>

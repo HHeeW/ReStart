@@ -6,7 +6,7 @@ import isLeapYear from 'dayjs/plugin/isLeapYear'
 dayjs.extend(isLeapYear); // 플러그인 등록
 dayjs.locale('ko'); // 언어 등록
 
-const Home = () => {
+const Home = ({setLeftMenu, leftMenu}) => {
   const MainContainer = styled.div`
     width: 100%;
     height: 100%;
@@ -14,7 +14,7 @@ const Home = () => {
     grid-template-rows: 8% 92%;
   `
   const HeaderContainer = styled.div`
-    width: 100%;
+    width: 70%;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -22,14 +22,24 @@ const Home = () => {
     grid-template-columns: 5% 40% 5%;
     grid-column-gap: 17.5%;
     text-align: center;
+    img{
+      width: 30px;
+      position: absolute;
+      left: 10px;
+      cursor: pointer;
+    }
     span{
       cursor: pointer;
     }
-    @media (min-width: 1536px) {
+    @media (min-width: 768px) { //md
+      width: 80%;
+    }
+    @media (min-width: 1536px) {  //2xl
       width: 50%;
       display: grid;
       grid-template-columns: 10% 30% 10%;
       grid-column-gap: 25%;
+      img{display:none;}
     }
   `
   const CalendarContainer = styled.div`
@@ -55,7 +65,6 @@ const Home = () => {
 
   const [DATE, setDATE] = useState(dayjs())
   const [calendar, setCalendar] = useState()
-    console.log(calendar)
   useEffect(()=>{
     DateCalendar()
   }, [])
@@ -66,6 +75,7 @@ const Home = () => {
   useEffect(()=>{
     DateCalendar()
   },[DATE])
+  
   const KeyEvent = (e) => {
     console.log(e)
   };
@@ -100,11 +110,11 @@ const Home = () => {
       )
     }
     setCalendar(date)
-
   }
   return (
     <MainContainer>
       <HeaderContainer>
+        <img src='/Images/Main/List.png' alt='메뉴 보기' onClick={()=>{setLeftMenu(true)}}/>
         <span onClick={()=>ChangeDate(1)}>{dayjs(DATE).subtract(1, 'month').format('M월')}</span>
         <p style={{fontSize: 'max(1.5vw, 26px)', fontWeight: 'bold',}}>{dayjs(DATE).format('YYYY년 M월')}</p>
         <span onClick={()=>ChangeDate(-1)}>{dayjs(DATE).subtract(-1, 'month').format('M월')}</span>
