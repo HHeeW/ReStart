@@ -10,7 +10,7 @@ import { useState } from 'react'
 // import ListHome from './Page/ToDoList/ListHome'
 
 const App = () => {
-  const [leftMenu, setLeftMenu] = useState('block')
+  const [leftMenu, setLeftMenu] = useState(false)
   return (
     <Routes>
       <Route element={<Layout setLeftMenu={setLeftMenu} leftMenu={leftMenu} />}>
