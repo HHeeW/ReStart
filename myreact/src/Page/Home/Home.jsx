@@ -108,7 +108,7 @@ const Home = ({setLeftMenu, leftMenu}) => {
     for(let i = dayjs(DATE).startOf('month').format('YYYY-MM-DD'); i <= dayjs(DATE).endOf('month').format('YYYY-MM-DD'); i=dayjs(i).subtract(-1,'day').format('YYYY-MM-DD')){ 
       date.push(
         <div 
-          id={`${dayjs(i).format('YYYY-MM-D')} ${Today === i ? 'Today' : ''}`} 
+          id={`${dayjs(i).format('YYYY-MM-DD')} ${Today === i ? 'Today' : ''}`} 
           className={`Calendar ${Today === i ? 'Today' : ''}`}
           onClick={(e)=>{dailyPop(e.target.id)}}
           >
@@ -122,7 +122,7 @@ const Home = ({setLeftMenu, leftMenu}) => {
     for(let i = 1; i < (7-dayjs(DATE).endOf('month').format('d')); i++){
       date.push(
         <div 
-          id={dayjs(DATE).endOf('month').subtract(i*-1, 'day').format('YYYY-MM-D')} 
+          id={dayjs(DATE).endOf('month').subtract(i*-1, 'day').format('YYYY-MM-DD')} 
           className={`Calendar ${Today === i ? 'Today' : ''}`}>
           <p 
             className={`Day NextDay`}>
