@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ko'
 import isLeapYear from 'dayjs/plugin/isLeapYear'
-import Popup from './Popup'
+import DailyPopup from './DailyPopup'
 dayjs.extend(isLeapYear); // 플러그인 등록
 dayjs.locale('ko'); // 언어 등록
 
@@ -78,13 +78,16 @@ const Home = ({setLeftMenu, leftMenu}) => {
     DateCalendar()
   }, [])
 
-  const ChangeDate = (e) => {
-    setDATE(dayjs(DATE).subtract(e, 'month'))
-  }
   useEffect(()=>{
     DateCalendar()
   },[DATE])
   
+  const ChangeDate = (e) => {
+    setDATE(dayjs(DATE).subtract(e, 'month'))
+  }
+  const dailyPop = (e) => { //날짜 클릭시 팝업 띄우는 함수
+    setPopup({state: true, date: e})
+  }
   const KeyEvent = (e) => { //키보드로 월 이동
     console.log(e)
   };
@@ -107,7 +110,7 @@ const Home = ({setLeftMenu, leftMenu}) => {
         <div 
           id={`${dayjs(i).format('YYYY-MM-D')} ${Today === i ? 'Today' : ''}`} 
           className={`Calendar ${Today === i ? 'Today' : ''}`}
-          onClick={setPopup({state: true, date: dayjs(i).format('YYYY-MM-D')})}
+          onClick={(e)=>{dailyPop(e.target.id)}}
           >
           <p 
             className={`Day`}>
@@ -153,7 +156,7 @@ const Home = ({setLeftMenu, leftMenu}) => {
             })
           }
         </CalendarContainer>
-        {popup.state ? <Popup setPopup={setPopup} popup={popup} /> : ''} {/* 날짜 클릭시 팝업 */}
+        {popup.state && <DailyPopup setPopup={setPopup} popup={popup} />} {/* 날짜 클릭시 팝업 */}
       </MainContainer>
   )
 }
