@@ -10,7 +10,7 @@ import { useState } from 'react'
 // import ListHome from './Page/ToDoList/ListHome'
 
 const App = () => {
-  const [leftMenu, setLeftMenu] = useState(false)
+  const [leftMenu, setLeftMenu] = useState(true) //처음은 전체 화면 기준으로 왼쪽 보이기
   return (
     <Routes>
       <Route element={<Layout setLeftMenu={setLeftMenu} leftMenu={leftMenu} />}>

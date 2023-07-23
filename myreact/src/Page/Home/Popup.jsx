@@ -14,7 +14,7 @@ const PopupBack = styled.div`
 const Popup = (props) => {
     console.log({props})
   return (
-    <PopupBack>
+    <PopupBack onClick={()=>{props.setPopup(false)}}>
         <div>
             
         </div>

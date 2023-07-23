@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 
@@ -68,17 +68,6 @@ const ImageBox = styled.div`
 `
 
 const Left = ({setLeftMenu, leftMenu}) => {
-  const handleResize = () => {
-    if(window.innerWidth >= 1536){
-      setLeftMenu(true)
-    }
-  }
-  useEffect(()=>{
-    window.addEventListener("resize", handleResize);
-    return ()=>{
-      window.addEventListener("resize", handleResize);
-    }
-  }, [])
   return (
     <GridContainer >
       <GridRow1 className='bg-Main mix-blend-difference'>
