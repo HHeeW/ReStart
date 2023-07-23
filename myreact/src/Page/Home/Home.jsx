@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ko'
 import isLeapYear from 'dayjs/plugin/isLeapYear'
-import Popup from './Popup'
+import DailyPopup from './DailyPopup'
 dayjs.extend(isLeapYear); // 플러그인 등록
 dayjs.locale('ko'); // 언어 등록
 
@@ -78,13 +78,16 @@ const Home = ({setLeftMenu, leftMenu}) => {
     DateCalendar()
   }, [])
 
-  const ChangeDate = (e) => {
-    setDATE(dayjs(DATE).subtract(e, 'month'))
-  }
   useEffect(()=>{
     DateCalendar()
   },[DATE])
   
+  const ChangeDate = (e) => {
+    setDATE(dayjs(DATE).subtract(e, 'month'))
+  }
+  const dailyPop = (e) => { //날짜 클릭시 팝업 띄우는 함수
+    setPopup({state: true, date: e})
+  }
   const KeyEvent = (e) => { //키보드로 월 이동
     console.log(e)
   };
@@ -105,9 +108,9 @@ const Home = ({setLeftMenu, leftMenu}) => {
     for(let i = dayjs(DATE).startOf('month').format('YYYY-MM-DD'); i <= dayjs(DATE).endOf('month').format('YYYY-MM-DD'); i=dayjs(i).subtract(-1,'day').format('YYYY-MM-DD')){ 
       date.push(
         <div 
-          id={`${dayjs(i).format('YYYY-MM-D')} ${Today === i ? 'Today' : ''}`} 
-          className={`Calendar ${Today === i ? 'Today' : ''}`}
-          onClick={setPopup({state: true, date: dayjs(i).format('YYYY-MM-D')})}
+          id={`${dayjs(i).format('YYYY-MM-DD')} ${Today === i ? 'Today' : ''}`} //오늘이면Today
+          className={`Calendar ${Today === i ? 'Today' : ''}`} //오늘이면Today
+          onClick={(e)=>{dailyPop(e.target.id)}}
           >
           <p 
             className={`Day`}>
@@ -119,7 +122,7 @@ const Home = ({setLeftMenu, leftMenu}) => {
     for(let i = 1; i < (7-dayjs(DATE).endOf('month').format('d')); i++){
       date.push(
         <div 
-          id={dayjs(DATE).endOf('month').subtract(i*-1, 'day').format('YYYY-MM-D')} 
+          id={dayjs(DATE).endOf('month').subtract(i*-1, 'day').format('YYYY-MM-DD')} 
           className={`Calendar ${Today === i ? 'Today' : ''}`}>
           <p 
             className={`Day NextDay`}>
@@ -138,7 +141,7 @@ const Home = ({setLeftMenu, leftMenu}) => {
           <p style={{fontSize: 'max(1.5vw, 26px)', fontWeight: 'bold',}}>{dayjs(DATE).format('YYYY년 M월')}</p>
           <span onClick={()=>ChangeDate(-1)}>{dayjs(DATE).subtract(-1, 'month').format('M월')}</span>
         </HeaderContainer>
-        <CalendarContainer Today>
+        <CalendarContainer>
           <div className='Week'><span className='text-[#f00]'>일</span></div>
           <div className='Week'><span>월</span></div>
           <div className='Week'><span>화</span></div>
@@ -153,7 +156,7 @@ const Home = ({setLeftMenu, leftMenu}) => {
             })
           }
         </CalendarContainer>
-        {popup.state ? <Popup setPopup={setPopup} popup={popup} /> : ''} {/* 날짜 클릭시 팝업 */}
+        {popup.state && <DailyPopup setPopup={setPopup} popup={popup} />} {/* 날짜 클릭시 팝업 */}
       </MainContainer>
   )
 }

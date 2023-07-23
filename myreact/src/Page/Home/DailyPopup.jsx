@@ -11,10 +11,10 @@ const PopupBack = styled.div`
     background-color: rgba(0,0,0,0.3);
 `
 
-const Popup = (props) => {
-    console.log({props})
+const DailyPopup = (props) => {
+  
   return (
-    <PopupBack onClick={()=>{props.setPopup(false)}}>
+    <PopupBack onClick={()=>{props.setPopup({state: false})}}>
         <div>
             
         </div>
@@ -22,4 +22,4 @@ const Popup = (props) => {
   )
 }
 
-export default Popup
+export default DailyPopup
