@@ -18,6 +18,7 @@ module.exports = {
       boxShadow: {
         'defaultBox': '0 0px 10px 5px rgba(0, 0, 0, 0.1)',
         'hoverBox': '0 0px 10px 10px rgba(0, 0, 0, 0.2)',
+        'leftBox': '5px 0px 10px 0px rgba(0,0,0,0.3)',
       },
       backgroundColor:{
         'Main': '#4B8EB5',

@@ -9,7 +9,10 @@ const GridContainer = styled.div`
   grid-template-rows: 1.5fr 1fr 5fr 5fr 5fr;
   img{
     width:30px;
-    margin: 10px auto;  
+    margin: 5px auto;  
+  }
+  >div{
+    overflow: hidden;
   }
 `
 const GridRow1 = styled.div`
@@ -69,7 +72,7 @@ const ImageBox = styled.div`
 
 const Left = ({setLeftMenu, leftMenu}) => {
   return (
-    <GridContainer >
+    <GridContainer onClick={()=>(leftMenu === false ? setLeftMenu(true) : '')}>
       <GridRow1 className='bg-Main mix-blend-difference'>
       { 
         leftMenu ? 

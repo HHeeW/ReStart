@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ko'
 import isLeapYear from 'dayjs/plugin/isLeapYear'
 import DailyPopup from './DailyPopup'
+import Calendar from './Calendar'
 dayjs.extend(isLeapYear); // 플러그인 등록
 dayjs.locale('ko'); // 언어 등록
 
@@ -68,71 +69,17 @@ const CalendarContainer = styled.div`
     background-color: rgb(220 240 255);
   }
 `
-const Home = ({setLeftMenu, leftMenu}) => {
+const Home = ({setLeftMenu}) => {
 
-  const [Today, setToday] = useState(dayjs().format('YYYY-MM-DD'))  //오늘 날짜
   const [DATE, setDATE] = useState(dayjs()) //선택 중인 날짜
-  const [calendar, setCalendar] = useState()  //일 가져오기
-  const [popup, setPopup] = useState({state: false, date: ''})
-  useEffect(()=>{
-    DateCalendar()
-  }, [])
-
-  useEffect(()=>{
-    DateCalendar()
-  },[DATE])
-  
+  const [popup, setPopup] = useState({state: false, year: '', month: '', day: '', date:''})
   const ChangeDate = (e) => {
     setDATE(dayjs(DATE).subtract(e, 'month'))
-  }
-  const dailyPop = (e) => { //날짜 클릭시 팝업 띄우는 함수
-    setPopup({state: true, date: e})
   }
   const KeyEvent = (e) => { //키보드로 월 이동
     console.log(e)
   };
 
-  const DateCalendar = () => {  //이번달 한달 달력 그리기
-    let date = []
-    for(let i = dayjs(DATE).startOf('month').format('d'); i > 0; i--){
-      date.push(
-        <div 
-          id={dayjs(DATE).startOf('month').subtract(i, 'day').format('YYYY-MM-D')} 
-          className={`Calendar ${Today === i ? 'Today' : ''}`}>
-          <p className={`Day PrevDay ${Today === i ? 'Today' : ''}`}>
-            {dayjs(DATE).startOf('month').subtract(i, 'day').format('D')}
-          </p>
-        </div>
-      )
-    }
-    for(let i = dayjs(DATE).startOf('month').format('YYYY-MM-DD'); i <= dayjs(DATE).endOf('month').format('YYYY-MM-DD'); i=dayjs(i).subtract(-1,'day').format('YYYY-MM-DD')){ 
-      date.push(
-        <div 
-          id={`${dayjs(i).format('YYYY-MM-DD')} ${Today === i ? 'Today' : ''}`} //오늘이면Today
-          className={`Calendar ${Today === i ? 'Today' : ''}`} //오늘이면Today
-          onClick={(e)=>{dailyPop(e.target.id)}}
-          >
-          <p 
-            className={`Day`}>
-            {dayjs(i).format('D')}
-          </p>
-        </div>
-      )
-    }
-    for(let i = 1; i < (7-dayjs(DATE).endOf('month').format('d')); i++){
-      date.push(
-        <div 
-          id={dayjs(DATE).endOf('month').subtract(i*-1, 'day').format('YYYY-MM-DD')} 
-          className={`Calendar ${Today === i ? 'Today' : ''}`}>
-          <p 
-            className={`Day NextDay`}>
-            {dayjs(DATE).endOf('month').subtract(i*-1, 'day').format('D')}
-          </p>
-        </div>
-      )
-    }
-    setCalendar(date)
-  }
   return (
       <MainContainer>
         <HeaderContainer>
@@ -149,12 +96,7 @@ const Home = ({setLeftMenu, leftMenu}) => {
           <div className='Week'><span>목</span></div>
           <div className='Week'><span>금</span></div>
           <div className='Week'><span className='text-[#00f]'>토</span></div>
-          {
-            !!calendar&&
-            calendar.map((e,i) => {
-              return (e)
-            })
-          }
+          <Calendar setPopup={setPopup} DATE={DATE} />
         </CalendarContainer>
         {popup.state && <DailyPopup setPopup={setPopup} popup={popup} />} {/* 날짜 클릭시 팝업 */}
       </MainContainer>

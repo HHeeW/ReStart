@@ -14,7 +14,7 @@ const App = () => {
   return (
     <Routes>
       <Route element={<Layout setLeftMenu={setLeftMenu} leftMenu={leftMenu} />}>
-        <Route path='/'element={<Home setLeftMenu={setLeftMenu} leftMenu={leftMenu} />}/>
+        <Route path='/'element={<Home setLeftMenu={setLeftMenu}/>}/>
         {/* <Route path='/listhome' element={<ListHome/>} />
         <Route path='/userhome/:username' element={<UserHome/>} />
         <Route path='/signin' element={<SignInPage/>} />

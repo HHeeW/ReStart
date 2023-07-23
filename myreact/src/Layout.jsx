@@ -6,14 +6,15 @@ const Layout = ({setLeftMenu, leftMenu}) => {
   
   const handleResize = () => {
     if(window.innerWidth < 1536){
+      if(leftMenu !== false)
       setLeftMenu(false)
     }else{
+      if(leftMenu !== true)
       setLeftMenu(true)
     }
   }
   useEffect(()=>{
     handleResize()
-    window.addEventListener("resize", handleResize);
     return ()=>{
       window.addEventListener("resize", handleResize);
     }
