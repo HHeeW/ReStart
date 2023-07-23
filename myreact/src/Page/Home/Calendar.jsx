@@ -7,18 +7,43 @@ const Calendar = ({setPopup, DATE}) => {
     
   const [Today, setToday] = useState(dayjs().format('YYYY-MM-DD'))  //오늘 날짜
   const [calendar, setCalendar] = useState()  //일 가져오기
-  const URL = "/B090041/openapi/service/SpcdeInfoService"
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const URL = "dateApi/"+"getHoliDeInfo"
+  
   useEffect(()=>{
     DateCalendar()
   },[DATE])
   
-  const response = axios.get(URL, {
-    params: {
-        serviceKey: process.env.REACT_APP_API_KEY,
-        numOfRows: 1,
-        pageNo: 10
-      }
-  })
+  const fetchData = () => {
+    try {
+      setError(null);
+      setData(null);
+      setLoading(true);
+
+      const response = axios.get(URL, {
+        params: {
+          serviceKey: process.env.REACT_APP_SPCDEINFOSERVICE_KEY,
+          solYear: dayjs(DATE).format('YYYY'),
+          solMonth: dayjs(DATE).format('MM'),
+          _type: 'json'
+        }
+      });
+
+      setData(response);
+    } catch(e) {
+      setError(e);
+    }
+    setLoading(false);
+    console.log(data)
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const dailyPop = (e) => { //날짜 클릭시 팝업 띄우는 함수
     setPopup({state: true, year: dayjs(e).format('YYYY'), month: dayjs(e).format('MM'), day: dayjs(e).format('D'), date: dayjs(e).format('dd')})
