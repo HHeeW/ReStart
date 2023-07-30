@@ -7,19 +7,57 @@ const Calendar = ({setPopup, DATE}) => {
     
   const [Today, setToday] = useState(dayjs().format('YYYY-MM-DD'))  //오늘 날짜
   const [calendar, setCalendar] = useState()  //일 가져오기
-  const URL = "/B090041/openapi/service/SpcdeInfoService"
+  const [solDay, setSolDay] = useState({Year: dayjs().format('YYYY'), Month: dayjs().format('MM')});
+  const [getSpcdeInfo, setGetSpcdeInfo] = useState([]);
+  const numOfRows = [1,2,3,4]
+  const URL = "/SpcdeInfo/B090041/openapi/service/SpcdeInfoService/";
+  const Param = [
+    "getHoliDeInfo", 
+    "getRestDeInfo", 
+    "getAnniversaryInfo",	
+    "get24DivisionsInfo",	
+    "getSundryDayInfo"
+  ]
+
+  useEffect(()=>{
+    Param.map((e,i)=>{
+      if(!numOfRows.includes(i)){
+        axios.get(URL + e, {
+          params: {
+            ServiceKey: process.env.REACT_APP_SpcdeInfoService_Key,
+            solYear: solDay.Year,
+            solMonth: solDay.Month
+          }
+        })
+        .then((res)=>{
+          console.log(res);
+        })
+        .catch((err)=>{
+          console.error(err)
+        })
+      }else{
+        axios.get(URL + e, {
+          params: {
+            ServiceKey: process.env.REACT_APP_SpcdeInfoService_Key,
+            solYear: solDay.Year,
+            solMonth: solDay.Month,
+            numOfRows: 50 ,
+            pageNo: 1
+          }
+        })
+        .then((res)=>{
+          console.log(res)
+        })
+        .catch((err)=>{
+          console.error(err)
+        })
+      }
+    })
+  },[])
+
   useEffect(()=>{
     DateCalendar()
   },[DATE])
-  
-  const response = axios.get(URL, {
-    params: {
-        serviceKey: process.env.REACT_APP_API_KEY,
-        numOfRows: 1,
-        pageNo: 10
-      }
-  })
-
   const dailyPop = (e) => { //날짜 클릭시 팝업 띄우는 함수
     setPopup({state: true, year: dayjs(e).format('YYYY'), month: dayjs(e).format('MM'), day: dayjs(e).format('D'), date: dayjs(e).format('dd')})
   }
