@@ -30,7 +30,12 @@ const Calendar = ({setPopup, DATE}) => {
         url:`${URL}/${e}?solYear=${solDay.Year}&solMonth=${solDay.Month}&ServiceKey=${process.env.REACT_APP_SpcdeInfoService_Key}&_type=json`
       })
       .then((res)=>{
-        value[i] = res.data.response.body.items.item;
+        const temp = res.data.response.body.items.item
+        const val = []
+        temp.forEach((val)=>{
+          val.push(val)
+        });
+        value[i] = val
       })
       .catch((err)=>{
         console.error(err)
